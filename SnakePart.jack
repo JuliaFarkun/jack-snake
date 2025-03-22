@@ -1,0 +1,30 @@
+class SnakePart {
+    field Cell cell;
+    field SnakePart next;
+
+    constructor SnakePart new(Cell curCell) {
+        let cell = curCell;
+        let next = null;
+        do cell.setType(1);
+        return this;
+    }
+
+    function SnakePart getNext() {
+        return next;
+    }
+
+    function void setNext(SnakePart nextPart) {
+        let next = nextPart;
+        return;
+    }
+
+    function Cell getCell() {
+        return cell;
+    }
+
+    method void dispose() {
+        do cell.setType(0);
+        do Memory.deAlloc(this);
+        return;
+    }
+}
