@@ -17,9 +17,6 @@ class Cell {
         return this;
     }
 
-    /** 
-     * Возвращает тип ячейки.
-     */
     function int getType() {
         return type;
     }
@@ -44,16 +41,11 @@ class Cell {
         return;
     }
 
-    /** 
-     * Возвращает x-координату.
-     */
+    
     function int getX() {
         return x;
     }
 
-    /** 
-     * Возвращает y-координату.
-     */
     function int getY() {
         return y;
     }
@@ -62,32 +54,23 @@ class Cell {
      * Очищает ячейку (делает пустой и закрашивает белым).
      */
     method void clear() {
-        do Screen.setColor(false); // Белый цвет
-        do Screen.fillRectangle(x, y, x + SIZE, y + SIZE); // Очищаем ячейку
+        do Screen.setColor(false); 
+        do Screen.fillRectangle(x, y, x + SIZE, y + SIZE); 
         return;
     }
 
-    /** 
-     * Отрисовывает змею 
-     */
     method void drawSnake() {
         do Screen.setColor(true); 
         do Screen.fillRectangle(x, y, x + SIZE, y + SIZE);
         return;
     }
 
-    /** 
-     * Отрисовывает яблоко 
-     */
     method void drawApple() {
         do Screen.setColor(true);  
-        do Screen.drawCircle(x + SIZE / 2, y + SIZE / 2, SIZE / 2); // Рисуем круг по центру ячейки
+        do Screen.drawCircle(x + SIZE / 2, y + SIZE / 2, SIZE / 2);
         return;
     }
 
-    /** 
-     * Возвращает размер (всегда 16).
-     */
     function int getSize() {
         return SIZE;
     }

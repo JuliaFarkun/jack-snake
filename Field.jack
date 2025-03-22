@@ -1,30 +1,100 @@
 class Field {
-    field Array cells;
+    field Array cells; 
 
+    /** 
+     * Конструктор поля.
+     * Создаём массив ячеек с шагом 16 по обеим осям (от (0, 16) до (512, 256)).
+     */
     constructor Field new() {
-        /* инит массивов с координатами левого верхнего угла - 
-            от (0, 16) или (1, 17) с шагом 16 в обе стороны до 
-            (512, 256) невкл*/
+        let cells = Array.new(32 * 15); // Массив на 480 ячеек
+        var int i, j;
+        
+        // Заполняем поле ячейками
+        let i = 16;
+        while (i < 256) {
+            let j = 0;
+            while (j < 512) {
+                // Создаём ячейки с координатами угла (j, i)
+                let cells[GetHashCode(j, i)] = Cell.new(j, i);
+                let j = j + 16;
+            }
+            let i = i + 16;
+        }
+        return this;
     }
 
+    /** 
+     * Получаем хеш-код ячейки по её координатам.
+     * Хеш-код — номер ячейки в массиве.
+     */
     function int GetHashCode(int x, int y) {
-        /* лучше хеш считать номером ячейки */
+        if ((x < 0) | (x > 512) | (y < 16) | (y > 256)) {
+            return -1;
+        }
+        let y = y - 16;
+        let x = x - (x - (x / 16 * 16));
+        let y = y - (y - (y / 16 * 16));
+        return (x / 16) + (y * 2);
     }
 
-    function void setShake(int x, int y) {
+    /** 
+     * Установка яблока в рандомную ячейку
+     */
+    function void createApple(int num) {
+        var Cell currentCell;
+        var int numberOfCell;
 
+        //тестовая версия, где индекс передаётся
+        let numberOfCell = num;
+
+        // выбор ячейки
+        
+        // Пока ячейка не пуста, выбираем другую
+        /*while (~(currentCell.getType() = 0)) {
+
+            // выбор ячейки
+
+        }*/
+        // Отрисовываем яблоко на поле
+        do currentCell.setType(2); 
+        return;
     }
 
-    function void createApple(int x, int y) {
-        /* рандомный выбор ячейки, но с проверкой, 
-            что там нет змеи + отрисовка на поле
-            Можно эффективнее, но рандомизированный 
-            алго должен работать достаточно эффективно, 
-            разве что если кто-то не заполнит змеёй всё поле. 
-            Но нас это парит? */ 
+    /** 
+     * Найти соседнюю ячейку слева.
+     * Если находимся на краю, возвращаем -1.
+     */
+    function int getLeft(int currentHash) {
+        if (currentHash % 32 > 0) { 
+            return currentHash - 1;
+        } else {
+            return -1; 
+        }
     }
 
-    function int getLeft(int currentNumber) {
 
+    function int getRight(int currentHash) {
+        if (currentHash % 32 < 31) { 
+            return currentHash + 1;
+        } else {
+            return -1; 
+        }
+    }
+
+
+    function int getUp(int currentHash) {
+        if (currentHash / 32 > 0) { 
+            return currentHash - 32;
+        } else {
+            return -1; 
+        }
+    }
+
+    function int getDown(int currentHash) {
+        if (currentHash / 32 < 14) { 
+            return cells[currentHash + 32];
+        } else {
+            return -1; 
+        }
     }
 }
