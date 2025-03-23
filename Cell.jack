@@ -19,7 +19,7 @@ class Cell {
         return this;
     }
 
-    function int getType() {
+    method int getType() {
         return type;
     }
 
@@ -44,19 +44,19 @@ class Cell {
     }
 
     
-    function int getX() {
+    method int getX() {
         return x;
     }
 
-    function int getY() {
+    method int getY() {
         return y;
     }
 
-    function int getHash() {
+    method int getHash() {
         return hash;
     }
 
-    function int getSize() {
+    method int getSize() {
         return SIZE;
     }
 
@@ -66,13 +66,13 @@ class Cell {
      */
     method void clear() {
         do Screen.setColor(false); 
-        do Screen.fillRectangle(x, y, x + SIZE, y + SIZE); 
+        do Screen.drawRectangle(x, y, x + SIZE, y + SIZE); 
         return;
     }
 
     method void drawSnake() {
         do Screen.setColor(true); 
-        do Screen.fillRectangle(x, y, x + SIZE, y + SIZE);
+        do Screen.drawRectangle(x, y, x + SIZE, y + SIZE);
         return;
     }
 
@@ -82,7 +82,7 @@ class Cell {
         return;
     }
     
-    function void dispose() {
+    method void dispose() {
         do clear();
         do Memory.deAlloc(this);
         return;

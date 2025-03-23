@@ -9,16 +9,16 @@ class SnakePart {
         return this;
     }
 
-    function SnakePart getNext() {
+    method SnakePart getNext() {
         return next;
     }
 
-    function void setNext(SnakePart nextPart) {
+    method void setNext(SnakePart nextPart) {
         let next = nextPart;
         return;
     }
 
-    function Cell getCell() {
+    method Cell getCell() {
         return cell;
     }
 

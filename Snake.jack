@@ -14,31 +14,38 @@ class Snake {
 
     function void turnRight() {
         let orientation = orientation + 1;
-        if (orientation >= 4)
+        if (~(orientation < 4)) {
             let orientation = orientation - 4;
+        }
+        return;
     }
 
     function void turnLeft() {
         let orientation = orientation + 3;
-        if (orientation >= 4)
+        if (~(orientation < 4)) {
             let orientation = orientation - 4;
+        }
+        return;
     }
 
     function int Move(int increase) {
         var int nextCellIndex;
-        var SnakePart newHead;
+        var SnakePart newHead, nextTail;
+        var Cell curCell;
+        
+        let curCell = head.getCell();
 
         if (orientation = 0) {
-            let nextCellIndex = gameField.getRight(head.getHash);
+            let nextCellIndex = Field.getRight(curCell.getHash());
         } 
         if (orientation = 1) {
-            let nextCellIndex = gameField.getDown(head.getHash);
+            let nextCellIndex = Field.getDown(curCell.getHash());
         } 
         if (orientation = 2) {
-            let nextCellIndex = gameField.getLeft(head.getHash);
+            let nextCellIndex = Field.getLeft(curCell.getHash());
         } 
         if (orientation = 3) {
-            let nextCellIndex = gameField.getUp(head.getHash);
+            let nextCellIndex = Field.getUp(curCell.getHash());
         } 
 
         if (nextCellIndex = (-1)) {
@@ -50,7 +57,6 @@ class Snake {
         let head = newHead;
 
         if (increase = 0) {
-            var SnakePart nextTail;
             let nextTail = tail.getNext();
             do tail.dispose();
             let tail = nextTail;
@@ -62,7 +68,7 @@ class Snake {
     method void dispose() {
         var SnakePart next;
         while (~(tail.getNext() = null)) {
-            let SnakePart = tail.getNext();
+            let next = tail.getNext();
             do tail.dispose();
             let tail = next;
         }

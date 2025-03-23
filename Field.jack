@@ -6,8 +6,8 @@ class Field {
      * Создаём массив ячеек с шагом 16 по обеим осям (от (0, 16) до (512, 256)).
      */
     constructor Field new() {
-        let cells = Array.new(32 * 15); // Массив на 480 ячеек
         var int i, j;
+        let cells = Array.new(32 * 15); // Массив на 480 ячеек
         
         // Заполняем поле ячейками
         let i = 16;
@@ -15,7 +15,7 @@ class Field {
             let j = 0;
             while (j < 512) {
                 // Создаём ячейки с координатами угла (j, i)
-                let cells[GetHashCode(j, i)] = Cell.new(j, i);
+                let cells[Field.GetHashCode(j, i)] = Cell.new(j, i, this);
                 let j = j + 16;
             }
             let i = i + 16;
@@ -40,7 +40,7 @@ class Field {
     /** 
      * Установка яблока в рандомную ячейку
      */
-    function void createApple(int num) {
+    method void createApple(int num) {
         var Cell currentCell;
         var int numberOfCell;
 
@@ -60,11 +60,13 @@ class Field {
         return;
     }
 
-    function int getTypeOfCell(int index) {
-        return cells[index].getType();
+    method int getTypeOfCell(int index) {
+        var Cell cur;
+        let cur = cells[index];
+        return cur.getType();
     }
 
-    function Cell getCell(int index) {
+    method Cell getCell(int index) {
         return cells[index];
     }
 
@@ -74,14 +76,15 @@ class Field {
      * Если находимся на краю, возвращаем -1.
      */
     function int getLeft(int currentHash) {
-        if (currentHash % 32 > 0) { 
+        if (currentHash - (currentHash / 32 * 32) > 0) { 
             return currentHash - 1;
         } else {
             return -1; 
         }
+    }
 
     function int getRight(int currentHash) {
-        if (currentHash % 32 < 31) { 
+        if (currentHash - (currentHash / 32 * 32) < 31) { 
             return currentHash + 1;
         } else {
             return -1; 
@@ -105,11 +108,13 @@ class Field {
     }
 
 
-    function void dispose() {
+    method void dispose() {
         var int i;
+        var Cell cur;
         let i = 0;
         while (i < 479) {
-            do cells[i].dispose();
+            let cur = cells[i];
+            do cur.dispose();
             let i = i + 1;
         }
         do cells.dispose();
