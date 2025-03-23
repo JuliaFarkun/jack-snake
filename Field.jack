@@ -1,12 +1,14 @@
 class Field {
     field Array cells; 
+    static int seed;
 
     /** 
      * Конструктор поля.
      * Создаём массив ячеек с шагом 16 по обеим осям (от (0, 16) до (512, 256)).
      */
-    constructor Field new() {
+    constructor Field new(int newSeed) {
         var int i, j;
+        let seed = newSeed;
         let cells = Array.new(32 * 15); // Массив на 480 ячеек
         
         // Заполняем поле ячейками
@@ -15,7 +17,7 @@ class Field {
             let j = 0;
             while (j < 512) {
                 // Создаём ячейки с координатами угла (j, i)
-                let cells[Field.GetHashCode(j, i)] = Cell.new(j, i, this);
+                let cells[Field.GetHashCode(j, i)] = Cell.new(j, i, Field.GetHashCode(j, i));
                 let j = j + 16;
             }
             let i = i + 16;

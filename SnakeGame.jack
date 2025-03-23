@@ -3,15 +3,60 @@ class SnakeGame {
     field Snake snake;
 
     constructor SnakeGame new() {
+        var int seed;
 
-        // на время тестов ситуативно, в чистовик здесь инит для Field и Snake
+        do Output.moveCursor(0, 1);
+        do Output.printString("Left-right and AD buttons to rotate. J for exit. Any button to start");
+
+        let seed = 0;
+        while (Keyboard.keyPressed() = 0) {
+            let seed = seed + 1;
+        }
+
+        let gameField = Field.new(seed);
 
         return this;
     }
 
     method void letPlay() {
+        var char key, lastKey;
+        var int i, check;
 
-        // писать код для тестирования здесь
+        do Screen.setColor(false); 
+        do Screen.drawRectangle(0, 0, 512, 256);
+        do Output.moveCursor(0, 1);
+        do Output.printString("Score: 0");
+        do Screen.drawRectangle(0, 15, 512, 16);
+        
+        let snake = Snake.new(gameField, gameField.getCell(239));
+
+        while (1 = 1) {
+            let lastKey = 0;
+            let i = 0;
+            while (i < 50) {
+                do Sys.wait(1);
+                let key = Keyboard.keyPressed();
+                if (~(key = lastKey)) {
+                    if ((key = 130) | (key = 65) | (key = 97)) {
+                        do snake.turnLeft();
+                        let lastKey = key;
+                    }
+                    if ((key = 132) | (key = 68) | (key = 100)) {
+                        do snake.turnRight();
+                        let lastKey = key;
+                    }
+                    if ((key = 74) | (key = 106)) {
+                        return;
+                    }
+                }
+                let i = i + 1;
+            }
+
+            if (snake.move(0) = (-1)) {
+                do Output.printString(" GAME OVER");
+                return;
+            }
+        }
 
         return;
     }

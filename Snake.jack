@@ -12,7 +12,7 @@ class Snake {
         return this;
     }
 
-    function void turnRight() {
+    method void turnRight() {
         let orientation = orientation + 1;
         if (~(orientation < 4)) {
             let orientation = orientation - 4;
@@ -20,7 +20,7 @@ class Snake {
         return;
     }
 
-    function void turnLeft() {
+    method void turnLeft() {
         let orientation = orientation + 3;
         if (~(orientation < 4)) {
             let orientation = orientation - 4;
@@ -28,7 +28,7 @@ class Snake {
         return;
     }
 
-    function int Move(int increase) {
+    method int move(int increase) {
         var int nextCellIndex;
         var SnakePart newHead, nextTail;
         var Cell curCell;
