@@ -1,15 +1,17 @@
 class Cell {
     field int type; // 0 - пустая, 1 - змея, 2 - яблоко
     field int x, y; // Координаты верхнего левого угла
+    field int hash; // хеш-номер ячейки
     static int SIZE; // Размер 16x16 (константа)
 
     /** 
      * Создаём ячейку с координатами (x, y).
      * По умолчанию пустая.
      */
-    constructor Cell new(int xPos, int yPos) {
+    constructor Cell new(int xPos, int yPos, int curHash) {
         let x = xPos;
         let y = yPos;
+        let hash = curHash;
         let type = 0; // Пустая ячейка
         if (~(SIZE > 0)) {
             let SIZE = 16;
@@ -50,6 +52,15 @@ class Cell {
         return y;
     }
 
+    function int getHash() {
+        return hash;
+    }
+
+    function int getSize() {
+        return SIZE;
+    }
+
+
     /** 
      * Очищает ячейку (делает пустой и закрашивает белым).
      */
@@ -70,11 +81,7 @@ class Cell {
         do Screen.drawCircle(x + SIZE / 2, y + SIZE / 2, SIZE / 2);
         return;
     }
-
-    function int getSize() {
-        return SIZE;
-    }
-
+    
     function void dispose() {
         do clear();
         do Memory.deAlloc(this);

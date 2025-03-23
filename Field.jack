@@ -60,8 +60,13 @@ class Field {
         return;
     }
 
+    function int getTypeOfCell(int index) {
+        return cells[index].getType();
+    }
+
+
     /** 
-     * Найти соседнюю ячейку слева.
+     * Найти соседнюю ячейку с соответствующей стороны.
      * Если находимся на краю, возвращаем -1.
      */
     function int getLeft(int currentHash) {
@@ -70,8 +75,6 @@ class Field {
         } else {
             return -1; 
         }
-    }
-
 
     function int getRight(int currentHash) {
         if (currentHash % 32 < 31) { 
@@ -80,7 +83,6 @@ class Field {
             return -1; 
         }
     }
-
 
     function int getUp(int currentHash) {
         if (currentHash / 32 > 0) { 
@@ -96,5 +98,18 @@ class Field {
         } else {
             return -1; 
         }
+    }
+
+
+    function void dispose() {
+        var int i;
+        let i = 0;
+        while (i < 479) {
+            do cells[i].dispose();
+            let i = i + 1;
+        }
+        do cells.dispose();
+        do Memory.deAlloc(this);
+        return;
     }
 }
