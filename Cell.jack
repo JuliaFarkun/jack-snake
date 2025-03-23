@@ -82,8 +82,12 @@ class Cell {
         return;
     }
     
+<<<<<<< Updated upstream
     function void dispose() {
         do clear();
+=======
+    method void dispose() {
+>>>>>>> Stashed changes
         do Memory.deAlloc(this);
         return;
     }
