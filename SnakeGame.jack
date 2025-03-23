@@ -1,0 +1,25 @@
+class SnakeGame {
+    field Field gameField;
+    field Snake snake;
+
+    constructor SnakeGame new() {
+
+        // на время тестов ситуативно, в чистовик здесь инит для Field и Snake
+
+        return this;
+    }
+
+    method void letPlay() {
+
+        // писать код для тестирования здесь
+
+        return;
+    }
+
+    method void dispose() {
+        do gameField.dispose();
+        do snake.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}
