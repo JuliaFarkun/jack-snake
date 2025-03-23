@@ -78,7 +78,7 @@ class Cell {
 
     method void drawApple() {
         do Screen.setColor(true);  
-        do Screen.drawCircle(x + SIZE / 2, y + SIZE / 2, SIZE / 2);
+        do Screen.drawCircle(x + (SIZE / 2), y + (SIZE / 2), SIZE / 2 - 3);
         return;
     }
     

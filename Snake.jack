@@ -3,12 +3,14 @@ class Snake {
     field SnakePart tail, head;
     field int orientation; // Поворот головы 
     // 0 - вправо, 1 - вниз, 2 - влево, 3 - вверх
+    field int score; // длина змеи и счёт 
 
     constructor Snake new(Field currentField, Cell cell) {
         let gameField = currentField;
         let tail = SnakePart.new(cell);
         let head = tail;
         let orientation = 0;
+        let score = 0;
         return this;
     }
 
@@ -28,11 +30,12 @@ class Snake {
         return;
     }
 
-    method int move(int increase) {
-        var int nextCellIndex;
+    method int move() {
+        var int increase, nextCellIndex;
         var SnakePart newHead, nextTail;
-        var Cell curCell;
+        var Cell curCell, newCell;
         
+        let increase = 0;
         let curCell = head.getCell();
 
         if (orientation = 0) {
@@ -52,14 +55,30 @@ class Snake {
             return -1;
         }
 
-        let newHead = SnakePart.new(gameField.getCell(nextCellIndex));
+        let newCell = gameField.getCell(nextCellIndex);
+        if (newCell.getType() = 1) {
+            return -1;
+        }
+        if (newCell.getType() = 2) {
+            let increase = 1;
+        }
+
+        let newHead = SnakePart.new(newCell);
         do head.setNext(newHead);
         let head = newHead;
 
         if (increase = 0) {
+            let curCell = tail.getCell();
+            do curCell.setType(0);
             let nextTail = tail.getNext();
             do tail.dispose();
             let tail = nextTail;
+        } else {
+            do gameField.createApple();
+            let score = score + 1;
+            do Output.moveCursor(0, 1);
+            do Output.printString("Score: ");
+            do Output.printInt(score);
         }
 
         return 1;

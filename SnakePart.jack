@@ -23,7 +23,6 @@ class SnakePart {
     }
 
     method void dispose() {
-        do cell.setType(0);
         do Memory.deAlloc(this);
         return;
     }
