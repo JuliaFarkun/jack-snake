@@ -42,25 +42,49 @@ class Field {
     /** 
      * Установка яблока в рандомную ячейку
      */
-    method void createApple(int num) {
+    method void createApple() {
         var Cell currentCell;
-        var int numberOfCell;
+        var int numberOfCell, countEmptyCells, i;
 
-        //тестовая версия, где индекс передаётся
-        let numberOfCell = num;
+        // подсчёт кол-ва свободных ячеек
+        let countEmptyCells = 0;
+        let i = 0;
+        while (i < 480) {
+            let currentCell = cells[i];
+            if (currentCell.getType() = 0) {
+                let countEmptyCells = countEmptyCells + 1;
+            }
+            let i = i + 1;
+        }
 
-        // выбор ячейки
+        // выбор номера по количеству свободных
+        let numberOfCell = nextSeed(countEmptyCells);
         
-        // Пока ячейка не пуста, выбираем другую
-        /*while (~(currentCell.getType() = 0)) {
-
-            // выбор ячейки
-
-        }*/
+        // поиск соответствующей ячейки
+        let countEmptyCells = 0;
+        let i = 0;
+        while (i < 480) {
+            let currentCell = cells[i];
+            if (currentCell.getType() = 0) {
+                if (countEmptyCells = numberOfCell) {
+                    let numberOfCell = i;
+                }
+                let countEmptyCells = countEmptyCells + 1;
+            }
+            let i = i + 1;
+        }
+        
+        let currentCell = cells[numberOfCell];
         // Отрисовываем яблоко на поле
         do currentCell.setType(2); 
         return;
     }
+
+    method int nextSeed(int mod) {
+        let seed = (seed * 87 + 123) & 32767; // LCG формула
+        return seed - (seed / mod * mod);
+    }
+
 
     method int getTypeOfCell(int index) {
         var Cell cur;
