@@ -1,0 +1,72 @@
+class Snake {
+    static Field gameField;
+    field SnakePart tail, head;
+    field int orientation; // Поворот головы 
+    // 0 - вправо, 1 - вниз, 2 - влево, 3 - вверх
+
+    constructor Snake new(Field currentField, Cell cell) {
+        let gameField = currentField;
+        let tail = SnakePart.new(cell);
+        let head = tail;
+        let orientation = 0;
+        return this;
+    }
+
+    function void turnRight() {
+        let orientation = orientation + 1;
+        if (orientation >= 4)
+            let orientation = orientation - 4;
+    }
+
+    function void turnLeft() {
+        let orientation = orientation + 3;
+        if (orientation >= 4)
+            let orientation = orientation - 4;
+    }
+
+    function int Move(int increase) {
+        var int nextCellIndex;
+        var SnakePart newHead;
+
+        if (orientation = 0) {
+            let nextCellIndex = gameField.getRight(head.getHash);
+        } 
+        if (orientation = 1) {
+            let nextCellIndex = gameField.getDown(head.getHash);
+        } 
+        if (orientation = 2) {
+            let nextCellIndex = gameField.getLeft(head.getHash);
+        } 
+        if (orientation = 3) {
+            let nextCellIndex = gameField.getUp(head.getHash);
+        } 
+
+        if (nextCellIndex = (-1)) {
+            return -1;
+        }
+
+        let newHead = SnakePart.new(gameField.getCell(nextCellIndex));
+        do head.setNext(newHead);
+        let head = newHead;
+
+        if (increase = 0) {
+            var SnakePart nextTail;
+            let nextTail = tail.getNext();
+            do tail.dispose();
+            let tail = nextTail;
+        }
+
+        return 1;
+    }
+
+    method void dispose() {
+        var SnakePart next;
+        while (~(tail.getNext() = null)) {
+            let SnakePart = tail.getNext();
+            do tail.dispose();
+            let tail = next;
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+}

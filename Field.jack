@@ -64,6 +64,10 @@ class Field {
         return cells[index].getType();
     }
 
+    function Cell getCell(int index) {
+        return cells[index];
+    }
+
 
     /** 
      * Найти соседнюю ячейку с соответствующей стороны.
@@ -94,7 +98,7 @@ class Field {
 
     function int getDown(int currentHash) {
         if (currentHash / 32 < 14) { 
-            return cells[currentHash + 32];
+            return currentHash + 32;
         } else {
             return -1; 
         }
