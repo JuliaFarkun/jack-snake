@@ -14,7 +14,7 @@ class Cell {
         let hash = curHash;
         let type = 0; // Пустая ячейка
         if (~(SIZE > 0)) {
-            let SIZE = 16;
+            let SIZE = 15;
         }
         return this;
     }

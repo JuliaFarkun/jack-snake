@@ -15,18 +15,34 @@ class Snake {
     }
 
     method void turnRight() {
-        let orientation = orientation + 1;
-        if (~(orientation < 4)) {
-            let orientation = orientation - 4;
+        if (orientation = 2) {
+            return;
         }
+        let orientation = 0;
+        return;
+    }
+
+    method void turnDawn() {
+        if (orientation = 3) {
+            return;
+        }
+        let orientation = 1;
         return;
     }
 
     method void turnLeft() {
-        let orientation = orientation + 3;
-        if (~(orientation < 4)) {
-            let orientation = orientation - 4;
+        if (orientation = 0) {
+            return;
         }
+        let orientation = 2;
+        return;
+    }
+
+    method void turnUp() {
+        if (orientation = 1) {
+            return;
+        }
+        let orientation = 3;
         return;
     }
 
@@ -76,8 +92,7 @@ class Snake {
         } else {
             do gameField.createApple();
             let score = score + 1;
-            do Output.moveCursor(0, 1);
-            do Output.printString("Score: ");
+            do Output.moveCursor(0, 8);
             do Output.printInt(score);
         }
 

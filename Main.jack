@@ -1,9 +1,58 @@
 class Main {
+    static int seed, sizeX, sizeY, speed;
+
     function void main() {
         var SnakeGame newGame;
-        let newGame = SnakeGame.new();
+        var char key;
+
+        do Output.moveCursor(1, 1);
+        do Output.printString("Arrows or WASD - rotate");
+        do Output.moveCursor(3, 1);
+        do Output.printString("J - exit");
+        do Output.moveCursor(5, 1);
+        do Output.printString("Press 0 to start from Emulator");
+        do Output.moveCursor(6, 1);
+        do Output.printString("Or 1 from nand2tetris.github.io");
+
+
+        let seed = 0;
+        let key = Keyboard.keyPressed();
+        while (~((key = 48) | (key = 49))) {
+            let seed = seed + 1;
+            let key = Keyboard.keyPressed();
+        }
+
+        if (key = 48) {
+            let sizeX = 511;
+            let sizeY = 255;
+            let speed = 200;
+        } else {
+            let sizeX = 512;
+            let sizeY = 255;
+            let speed = 20;
+        }
+
+
+        let newGame = SnakeGame.new(seed, sizeX, sizeY, speed);
         do newGame.letPlay();
-        do newGame.dispose();
+
+        while (1 = 1) {
+            let key = Keyboard.keyPressed();
+            while (~((key = 74) | (key = 106) | (key = 82) | (key = 114))) {
+                let seed = seed + 1;
+                let key = Keyboard.keyPressed();
+            }
+
+            if ((key = 74) | (key = 106)) {
+                do newGame.dispose();
+                return;
+            } else {
+                do newGame.dispose();
+                do Screen.clearScreen();
+                let newGame = SnakeGame.new(seed, sizeX, sizeY, speed);
+                do newGame.letPlay();
+            }
+        }
         return;
     } 
 }

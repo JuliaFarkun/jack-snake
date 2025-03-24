@@ -1,18 +1,14 @@
 class SnakeGame {
     field Field gameField;
     field Snake snake;
+    static int seed, sizeX, sizeY, speed;
 
-    constructor SnakeGame new() {
-        var int seed;
+    constructor SnakeGame new(int Aseed, int AsizeX, int AsizeY, int Aspeed) {
 
-        do Output.moveCursor(0, 1);
-        do Output.printString("Left-right and AD buttons to rotate. J for exit. Any button to start");
-
-        let seed = 0;
-        while (Keyboard.keyPressed() = 0) {
-            let seed = seed + 1;
-        }
-
+        let seed = Aseed;
+        let sizeX = AsizeX;
+        let sizeY = AsizeY;
+        let speed = Aspeed;
         let gameField = Field.new(seed);
 
         return this;
@@ -22,12 +18,11 @@ class SnakeGame {
         var char key, lastKey;
         var int i, check;
 
-        do Screen.setColor(false); 
-        do Screen.drawRectangle(0, 0, 512, 256);
+        do Screen.clearScreen();
         do Output.moveCursor(0, 1);
         do Output.printString("Score: 0");
         do Screen.setColor(true); 
-        do Screen.drawRectangle(0, 15, 512, 16);
+        do Screen.drawRectangle(0, 15, sizeX, 15);
         
         let snake = Snake.new(gameField, gameField.getCell(239));
         do gameField.createApple();
@@ -35,16 +30,24 @@ class SnakeGame {
         while (1 = 1) {
             let lastKey = 0;
             let i = 0;
-            while (i < 20) {
+            while (i < speed) {
                 do Sys.wait(1);
                 let key = Keyboard.keyPressed();
                 if (~(key = lastKey)) {
+                    if ((key = 132) | (key = 68) | (key = 100)) {
+                        do snake.turnRight();
+                        let lastKey = key;
+                    }
+                    if ((key = 115) | (key = 83) | (key = 133)) {
+                        do snake.turnDawn();
+                        let lastKey = key;
+                    }
                     if ((key = 130) | (key = 65) | (key = 97)) {
                         do snake.turnLeft();
                         let lastKey = key;
                     }
-                    if ((key = 132) | (key = 68) | (key = 100)) {
-                        do snake.turnRight();
+                    if ((key = 119) | (key = 87) | (key = 131)) {
+                        do snake.turnUp();
                         let lastKey = key;
                     }
                     if ((key = 74) | (key = 106)) {
@@ -55,7 +58,7 @@ class SnakeGame {
             }
 
             if (snake.move() = (-1)) {
-                do Output.printString(" GAME OVER");
+                do Output.printString("    GAME OVER    Press J to EXIT or R to RESTART");
                 return;
             }
         }
